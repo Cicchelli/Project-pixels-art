@@ -1,29 +1,42 @@
-function generateRandomColor() {
+function generateRandomColorRGB() {
   const red = Math.floor(Math.random() * 256);
   const green = Math.floor(Math.random() * 256);
   const blue = Math.floor(Math.random() * 256);
-  const ramdom = `rgb(${red}, ${green}, ${blue})`;
-  return ramdom;
+  return `rgb(${red}, ${green}, ${blue})`;
 }
-
-const colorBoxes = document.querySelectorAll('.color');
-
-const generateRandomColorsButton = document.createElement('button');
-generateRandomColorsButton.id = 'button-random-color';
-generateRandomColorsButton.textContent = 'Cores aleatórias';
-document.body.appendChild(generateRandomColorsButton);
-
-generateRandomColorsButton.addEventListener('click', () => {
-  console.log(generateRandomColor());
-  const ramdomColor = [];
-  for (let index = 1; index < colorBoxes.length; index += 1) {
-    const ramdom = generateRandomColor();
-    colorBoxes[index].style.backgroundColor = ramdom;
-    ramdomColor.push(ramdom);
+function generateRandomColor() {
+  const colorPalette = document.querySelectorAll('.color');
+  const createColor = [];
+  for (let index = 1; index < colorPalette.length; index += 1) {
+    const rgb = (generateRandomColorRGB());
+    colorPalette[index].style.backgroundColor = rgb;
+    createColor.push(rgb);
   }
-  return ramdomColor;
-});
-
+  localStorage.setItem('colorPalette', JSON.stringify(createColor));
+  return createColor;
+}
+// Req 4
+const createRandomButton = () => {
+  const generateRandomColorsButton = document.createElement('button');
+  generateRandomColorsButton.textContent = 'Cores aleatórias';
+  generateRandomColorsButton.id = 'button-random-color';
+  generateRandomColorsButton.addEventListener('click', generateRandomColor);
+  document.body.appendChild(generateRandomColorsButton);
+};
+// Req 5
+const select = document.querySelectorAll('.color');
+function restoreLocalStorage() {
+  const restoreLocal = localStorage.getItem('colorPalette');
+  const restoreStandart = JSON.parse(restoreLocal);
+  if (!restoreLocal) {
+    generateRandomColor();
+  } else {
+    for (let index = 1; index < select.length; index += 1) {
+      select[index].style.backgroundColor = restoreStandart[index - 1];
+    }
+  }
+}
+// Req 6
 const square = () => {
   for (let i = 0; i < 5; i += 1) {
     const createBoard = document.createElement('body');
@@ -38,3 +51,9 @@ const square = () => {
   }
 };
 square();
+
+
+window.onload = () => {
+  restoreLocalStorage();
+  createRandomButton();
+};
