@@ -8,7 +8,7 @@ function generateRandomColor() {
   const colorPalette = document.querySelectorAll('.color');
   const createColor = [];
   for (let index = 1; index < colorPalette.length; index += 1) {
-    const rgb = (generateRandomColorRGB());
+    const rgb = generateRandomColorRGB();
     colorPalette[index].style.backgroundColor = rgb;
     createColor.push(rgb);
   }
@@ -51,6 +51,31 @@ const square = () => {
   }
 };
 square();
+
+// Req 9
+const idPaleta = document.getElementById('color-palette');
+idPaleta.addEventListener('click', (event) => {
+  const elementsColor = document.querySelectorAll('.color');
+  for (let index = 0; index < elementsColor.length; index += 1) {
+    if (elementsColor[index].classList.contains('selected')) {
+      elementsColor[index].classList.remove('selected');
+    }
+    event.target.classList.add('selected');
+  }
+});
+
+function pintaPixel() {
+  const pixel = document.querySelectorAll('.pixel');
+  for (let index = 0; index < pixel.length; index += 1) {
+    pixel[index].addEventListener('click', () => {
+      pixel[index].style.backgroundColor =
+        document.querySelector('.selected').style.backgroundColor;
+    });
+  }
+}
+pintaPixel();
+
+// Req 8 - primeiro item falhando no cypress
 
 window.onload = () => {
   restoreLocalStorage();
