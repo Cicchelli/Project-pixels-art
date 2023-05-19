@@ -52,7 +52,6 @@ const square = () => {
 };
 square();
 
-
 window.onload = () => {
   restoreLocalStorage();
   createRandomButton();
