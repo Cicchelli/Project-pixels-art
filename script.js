@@ -53,9 +53,9 @@ const square = () => {
 square();
 
 // Req 9
+const elementsColor = document.getElementsByClassName('color');
 const idPaleta = document.getElementById('color-palette');
 idPaleta.addEventListener('click', (event) => {
-  const elementsColor = document.querySelectorAll('.color');
   for (let index = 0; index < elementsColor.length; index += 1) {
     if (elementsColor[index].classList.contains('selected')) {
       elementsColor[index].classList.remove('selected');
@@ -74,8 +74,6 @@ function pintaPixel() {
   }
 }
 pintaPixel();
-
-// Req 8 - primeiro item falhando no cypress
 
 window.onload = () => {
   restoreLocalStorage();
