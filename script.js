@@ -51,7 +51,6 @@ const square = () => {
   }
 };
 square();
-
 // Req 9
 const elementsColor = document.getElementsByClassName('color');
 const idPaleta = document.getElementById('color-palette');
